@@ -51,7 +51,8 @@ class MathString {
      * @returns {string} The result of the addition as a string.
      */
     plus(string) {
-        let i = this.value.length - 1,
+        const mainValue = this.value;
+        let i = mainValue.length - 1,
             j = string.length - 1,
             memo = 0,    // A variable that stores 1 or 0 when the sum of numeric values is larger than 10
             result = "";
@@ -59,7 +60,7 @@ class MathString {
         while (i >= 0 || j >= 0 || memo > 0) {
             let sum = memo; // The sum is initialized with the value of memo from the last comparison, or with zero if it's the first iteration
             if (i >= 0) {
-                sum += parseInt(this.value[i], 10);  // Increment the sum with the numeric value of the character
+                sum += parseInt(mainValue[i], 10);  // Increment the sum with the numeric value of the character
                 i--;
             }
             if (j >= 0) {
@@ -123,19 +124,46 @@ class MathString {
      * @param {string} string - The number to multiply by, as a string.
      * @returns {string} The result of the multiplication as a string.
      */
+    /**
+     * Multiplies the main number by the given number.
+     * @param {string} string The number to be multiplied.
+     * @returns {string} The result of the multiplication.
+     */
     multiply(string) {
-        if (this.value === "0" || string === "0") return "0";
-        let result = Array(this.value.length + string.length).fill(0);
-        for (let i = this.value.length - 1; i >= 0; i--) {
+        const mainValue = this.value;
+
+        // If one of the values is equal to zero, multiplication returns zero
+        if (mainValue === "0" || string === "0") {
+            return "0";
+        }
+
+        // Array to store the result, the length is the sum of the lengths of both arguments
+        let result = Array(mainValue.length + string.length).fill(0);
+
+        // The first loop iterates over the main string value
+        for (let i = mainValue.length - 1; i >= 0; i--) {
+            // The second loop iterates over the given string value
             for (let j = string.length - 1; j >= 0; j--) {
-                const multiply = parseInt(this.value[i], 10) * parseInt(string[j], 10);
+                // Multiply the numeric values of each character in the strings
+                const multiply = parseInt(mainValue[i], 10) * parseInt(string[j], 10);
+                // Add the multiply result to the value already stored in the result array
                 const sum = result[i + j + 1] + multiply;
+                // Set the modulo of the sum into the result array
                 result[i + j + 1] = sum % 10;
+                // Set the sum divided by 10 before the result of the modulo
                 result[i + j] += Math.floor(sum / 10);
+                // The reason for placing the values into the array:
+                // The result array represents a multiplication algorithm similar to manual multiplication,
+                // where each digit in the result is calculated separately and stored in the array.
+                // By placing the calculated values into the appropriate positions in the array,
+                // we ensure that the result is computed correctly and that any carry-over values are handled properly.
             }
         }
+
+        // Remove additional leading zeros from the result
         return result.join("").replace(/^0+/, "");
     }
+
 
     /**
      * Divides the current MathString value by another string-represented number.
@@ -143,17 +171,19 @@ class MathString {
      * @returns {string} The quotient of the division as a string, or an error message for division by zero.
      */
     divide(string) {
+        const mainValue = this.value;
         if (string === "0") {
             return "Error: Division by zero.";
         }
-        if (!this.isAGreaterThanB(this.value, string)) {
+        if (!this.isAGreaterThanB(mainValue, string)) {
             return "Error: number given is smaller or equal to main";
         }
 
         let dividend = 0,
             result = "";
-        for (let i = 0; i < this.value.length; i++) {
-            dividend = dividend * 10 + parseInt(this.value[i], 10);
+        for (let i = 0; i < mainValue.length; i++) {
+            // look for largest dividend
+            dividend = dividend * 10 + parseInt(mainValue[i], 10);
             let quotient = Math.floor(dividend / parseInt(string, 10));
             result += String(quotient);
             dividend -= quotient * parseInt(string, 10);
@@ -171,6 +201,6 @@ class MathString {
  console.log(mathString.multiply("111111111"));
  console.log(mathString.divide("283"));
  } catch (error) {
- console.error("Something goes wrong: ", error.message);
+ console.error("Something goes wrong: ", error. message);
  }
  */
