@@ -27,6 +27,25 @@ class SinglyLinkedList {
         return this;
 
     }
+
+    pop() {
+        let current = this.head;
+        let prev = current;
+        while (current.next) {
+            prev = current;
+            current = prev.next;
+        }
+        if (list.length > 0) {
+            this.tail = prev;
+            prev.next = null;
+            list.length--;
+        }
+        if (list.length === 0) {
+            this.head = null;
+            this.tail = null;
+        }
+        return current;
+    }
 }
 
 
@@ -38,4 +57,12 @@ list.push("yhere")
 list.push("there")
 list.push("where")
 list.push("qhere")
- console.log(list)
+list.pop();
+list.pop();
+list.pop();
+list.pop();
+list.pop();
+list.pop();
+list.push("hi");
+list.push("there")
+console.log(list)
