@@ -1,1 +1,3 @@
-# my_JS
+# my_JS - library for node course
+
+
