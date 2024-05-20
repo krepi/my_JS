@@ -138,7 +138,7 @@ class DoublyLinkedList {
     }
 
     /**
-     * 
+     *
      * @param index
      * @param value
      * @return {boolean}
@@ -149,9 +149,9 @@ class DoublyLinkedList {
         if (index === this.length) return !!this.push(value);
 
         const newNode = new Node(value);
-        const prevNode = this.get(index -1);
+        const prevNode = this.get(index - 1);
         const nextNode = prevNode.next
-        if(prevNode ){
+        if (prevNode) {
             newNode.next = nextNode;
             newNode.prev = prevNode;
             nextNode.prev = newNode;
@@ -161,6 +161,33 @@ class DoublyLinkedList {
         }
 
         return false;
+    }
+
+    /**
+     * 
+     * @param index
+     * @return {undefined|*|null}
+     */
+    remove(index) {
+        if (index < 0 || index > this.length) return undefined;
+        if (index === 0) return this.shift();
+        if (index === this.length) return this.pop();
+
+        const removedNode = this.get(index);
+        if(removedNode){
+            const prevNode = removedNode.prev;
+            const nextNode = removedNode.next
+
+            prevNode.next = nextNode;
+            nextNode.prev = prevNode;
+            removedNode.next = null;
+            removedNode.prev = null;
+
+            this.length--;
+
+            return removedNode;
+        }
+        return undefined;
     }
 
     printList() {
