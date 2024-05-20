@@ -95,6 +95,74 @@ class DoublyLinkedList {
         return this;
     }
 
+    /**
+     *
+     * @param index
+     * @return {*|null}
+     */
+    get(index) {
+        if (!this.head || index < 0 || index >= this.length) return null
+        let counter;
+        let indexed;
+        if (index <= this.length / 2) {
+            counter = 0;
+            indexed = this.head;
+            while (counter !== index) {
+                indexed = indexed.next;
+                counter++;
+            }
+        } else {
+            counter = this.length - 1;
+            indexed = this.tail
+            while (counter !== index) {
+                indexed = indexed.prev;
+                counter--;
+            }
+        }
+        return indexed;
+    }
+
+    /**
+     *
+     * @param index
+     * @param value
+     * @return {boolean}
+     */
+    set(index, value) {
+        const toSet = this.get(index);
+        if (toSet) {
+            toSet.val = value;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 
+     * @param index
+     * @param value
+     * @return {boolean}
+     */
+    insert(index, value) {
+        if (index < 0 || index > this.length) return false;
+        if (index === 0) return !!this.unshift(value);
+        if (index === this.length) return !!this.push(value);
+
+        const newNode = new Node(value);
+        const prevNode = this.get(index -1);
+        const nextNode = prevNode.next
+        if(prevNode ){
+            newNode.next = nextNode;
+            newNode.prev = prevNode;
+            nextNode.prev = newNode;
+            prevNode.next = newNode;
+            this.length++;
+            return true;
+        }
+
+        return false;
+    }
+
     printList() {
         const arr = [];
         let current = this.head;
