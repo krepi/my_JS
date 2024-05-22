@@ -196,23 +196,4 @@ class SinglyLinkedList {
     }
 }
 
-
-let list = new SinglyLinkedList()
-list.push('hi')
-list.push('there')
-list.push('bro')
-// console.log(list);
-// list.pop()
-// console.log(list)
-list.push("sis")
-list.push(99)
-list.shift()
-list.unshift('hi again')
-console.log(list.get(0))
-console.log(list.set(0, "again hi"))
-list.insert(1, "agenonin")
-console.log(list)
-console.log("before", list.listValuesToArray())
-list.reverse()
-console.log("reversed", list.listValuesToArray())
-console.log(list)
+module.exports = SinglyLinkedList

@@ -122,6 +122,26 @@ class DoublyLinkedList {
         return indexed;
     }
 
+    getImproved(index) {
+        if (index < 0 || index >= this.length) return null;
+
+        let current = this.head;
+        let direction = "next";
+
+
+        if (index > (this.length - 1) / 2) {
+            current = this.tail;
+            direction = "prev";
+            index = this.length - 1 - index;
+        }
+
+        for (let i = 0; i < index; i++) {
+            current = current[direction]
+        }
+
+        return current;
+    }
+
     /**
      *
      * @param index
@@ -164,7 +184,7 @@ class DoublyLinkedList {
     }
 
     /**
-     * 
+     *
      * @param index
      * @return {undefined|*|null}
      */
@@ -174,7 +194,7 @@ class DoublyLinkedList {
         if (index === this.length) return this.pop();
 
         const removedNode = this.get(index);
-        if(removedNode){
+        if (removedNode) {
             const prevNode = removedNode.prev;
             const nextNode = removedNode.next
 
@@ -203,13 +223,4 @@ class DoublyLinkedList {
     }
 }
 
-const list = new DoublyLinkedList()
-
-list.push("hi");
-
-list.push("there")
-
-list.push("there are")
-list.printList()
-list.pop()
-list.printList()
+module.exports = DoublyLinkedList;
