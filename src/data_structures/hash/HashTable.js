@@ -3,22 +3,47 @@
 
 class HashTable {
     constructor(size = 53) {
+        this.size = size;
         this.keyMap = new Array(size);
     }
+    /**
+     * Custom hash function used within the class.
+     * @param {string} key - The key to be hashed.
+     * @returns {number} The index in the hash table.
+     */
+    hash(key) {
 
+        return this._hash(strKey) % this.size;
+    }
+    _keyToString(key) {
+        let strKey;
+        if (typeof key === 'string') {
+            strKey = key;
+        } else if (typeof key === 'object' && key !== null) {
+            strKey = JSON.stringify(key);
+        } else if (typeof key === 'number') {
+            strKey = key.toString();
+        } else if (typeof key === 'function') {
+            strKey = key.toString();
+        } else {
+            throw new Error('Unsupported key type');
+        }
+        return strKey;
+
+    }
     _hash(key) {
         let total = 0;
-        let WEIRD_PRIME = 31;
+        const PRIME = 31;
         for (let i = 0; i < Math.min(key.length, 100); i++) {
             let char = key[i];
             let value = char.charCodeAt(0) - 96;
-            total = (total * WEIRD_PRIME + value) % this.keyMap.length
+            total = (total * PRIME + value)
         }
         return total;
     }
 
     get(key) {
-        const hshdKey = this._hash(key);
+        const hshdKey = this.hash(key);
         if(this.keyMap[hshdKey]) {
             for (let i = 0; i < this.keyMap[hshdKey].length; i++) {
                 if (this.keyMap[hshdKey][i][0] === key) {

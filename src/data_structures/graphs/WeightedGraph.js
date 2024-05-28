@@ -33,6 +33,26 @@ class WeightedGraph{
     }
 }
 
+class PriorityQueue{
+    constructor() {
+        this.values = [];
+    }
+
+    enqueue (val, priority){
+        this.values.push({val, priority});
+        this.values.sort()
+    }
+
+    dequeue(){
+        this.values.shift();
+    }
+    sort(){
+        this.values.sort((a, b) => a.priority - b.priority);
+    }
+
+}
+
+
 module.exports = WeightedGraph;
 const g = new WeightedGraph();
 g.addVertex("A");
