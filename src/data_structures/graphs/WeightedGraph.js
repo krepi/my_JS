@@ -40,7 +40,7 @@ class PriorityQueue{
 
     enqueue (val, priority){
         this.values.push({val, priority});
-        this.values.sort()
+        this.sort()
     }
 
     dequeue(){
@@ -70,6 +70,12 @@ g.addEdge("D", "E",2)
 g.addEdge("D", "F",1)
 g.addEdge("E", "F",1)
 
-
+const priorityQueue = new PriorityQueue();
+priorityQueue.enqueue('A',3);
+priorityQueue.enqueue('b',5);
+priorityQueue.enqueue('c',4);
+priorityQueue.enqueue('d',1);
+priorityQueue.dequeue();
 
 console.log(g.adjacencyList);
+console.log(priorityQueue);
