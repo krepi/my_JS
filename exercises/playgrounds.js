@@ -60,6 +60,7 @@ function waitForATemp() {
 // })();
 
 
+
 function doMyjob(hours) {
     return new Promise((resolve, reject) => {
         if (hours > 6) {
@@ -87,14 +88,14 @@ function pay() {
 //     .catch(error => console.log("Blad!", error));
 
 
-(async () => {
-    try {
-        await doMyjob(5);
-        console.log('Done!');
-        await pay();
-        console.log('Wyplata poszla!');
-
-    } catch (e) {
-        console.log("Blad! ", e);
-    }
-})();
+// (async () => {
+//     try {
+//         await doMyjob(5);
+//         console.log('Done!');
+//         await pay();
+//         console.log('Wyplata poszla!');
+//
+//     } catch (e) {
+//         console.log("Blad! ", e);
+//     }
+// })();
